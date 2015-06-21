@@ -3,7 +3,7 @@
 The approach of storing hashes of reviews in the bitcoin blockchain and having Sellers (and possibly notaries) held accountable for hosting the reviews has at least two difficulties. 
 
 1. How do we find all the review hashes for reviews of a given seller in the bitcoin blockchain? 
-2. How do we verify that the reviews are legitamate (came from the buyer listed in a completed OB Ricardian contract)?
+2. How do we verify that the reviews are legitimate (came from the buyer listed in a completed OB Ricardian contract)?
 
 What follows is one possible approach. This approach of storing reviews is intended to 
 
