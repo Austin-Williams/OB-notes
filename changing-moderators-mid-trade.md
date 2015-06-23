@@ -13,3 +13,7 @@ Refer to the 2-of-3 multisig address in which the funds are currently escrowed a
 3. Vendor and Buyer sign a transaction that moves all funds out of _TradeAddress_ and into _NewTradeAddress_.
 
 The Merchant and Buyer now have no need for the old Moderator, and can work with the NewModerator to settle their dispute.
+
+#### *Alternative Execution:*
+
+This method allows the Vendor and Buyer to create a 2-of-2 multisig address initially, and then follow the same steps as above to select a Moderator if they need arbitration.
