@@ -1,3 +1,5 @@
+### (This is an old approach. Ignore this document. Keeping it here only because it has some useful ideas in it).
+
 ### One Possible Approach to Storing OB Reviews in the Bitcoin Blockchain
 
 The approach of storing hashes of reviews in the bitcoin blockchain and having Sellers (and possibly notaries) held accountable for hosting the reviews has at least two difficulties. 
