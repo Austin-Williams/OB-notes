@@ -1,6 +1,7 @@
-##Blackmail-Resistant Blinding for OpenBazaar Contracts
+# Blackmail-Resistant Blinding for OpenBazaar Contracts
 
-###Motivation
+### Motivation
+
 A vendor or moderator may try to blackmail a buyer by threatening to reveal information that's been blinded and signed by the buyer. We would like a way for the buyer to be protected against blackmail that acheives the following:
 
 1. The vendor should be able to verify the information blinded in the contract and signed by the buyer.
@@ -39,4 +40,5 @@ Finally, during rating time, the buyer can choose to unblind the value by adding
 
 Any third party can then unblind and verify the value `SECRETDATA`.
 
-*The heart of the idea is this*: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away is their private keys. _So we should require their private keys be necessary for them to verify the data in our blinds._
+### Key Concept
+The heart of the idea is this: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away is their private keys. _So we should require their private keys be necessary for them to verify the data in our blinds._
