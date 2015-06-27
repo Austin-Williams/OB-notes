@@ -10,9 +10,11 @@ A vendor or moderator may try to blackmail a buyer by threatening to reveal info
 4. When the moderator can see/verify the blinded data, he should be bound by the same restrictions as the verifier in 2.
 5. At the time of writing her rating, the buyer ought to be able to unblind the chosen datafeilds in such a way that any third party can verify them.
 
+We will call such a method for data blinding _blackmail-reistant_.
+
 ### The Protocol
 
-Here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
+Here is how a data field can be blinded by a buyer in such a way as to be blackmail-resistant.
 
 
 Let `V`, `B`, and `M` denote the PGP keys for the vendor, buyer, and moderator, respectively.
