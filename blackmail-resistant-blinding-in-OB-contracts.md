@@ -32,7 +32,7 @@ Then the protocol works as follows:
 5. Through secure, direct communications, the buyer passes the vendor SECRETDATA and R.
 ```
 
-Now the vendor can decrypt the cyphertext ` ENC( {V,B',M}, SECRETDATA ⊕ R, ) ` to reveal ` SECRETDATA ⊕ R `, then use `R` to compute `SECRETDATA`. He can further verify that the buyer did in fact commit to these values. But the vendor cannot prove to a third party (other than the moderator... we'll get that next) that the buyer committed to SECRETDATA without the vendor revealing his own PGP private key.
+Now the vendor can decrypt the cyphertext ` ENC( {V,B',M}, SECRETDATA ⊕ R, ) ` to reveal ` SECRETDATA ⊕ R `, then use `R` to compute `SECRETDATA`. He can further verify that the buyer did in fact commit to these values by checking that SHA256( R ). But the vendor cannot prove to a third party (other than the moderator... we'll get that next) that the buyer committed to SECRETDATA without the vendor revealing his own PGP private key.
 
 The moderator, by himself, can (at best) decrypt and learn the value `SECRETDATA ⊕ R`. But without knowing `R` he learns exactly nothing about `SECRETDATA`.
 
