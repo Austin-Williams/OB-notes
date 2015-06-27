@@ -36,7 +36,7 @@ The moderator, by himself, can (at best) decrypt and learn the value `SECRETDATA
 
 To bring the moderator into the fold, either the vendor or the buyer simply reveal `R` to the moderator -- at which point the moderator can learn `SECRETDATA` and confirm that it's the value to which the buyer committed... but he can't convince any third party of that fact without revealing his own private pgp key.
 
-Finally, during rating time, the buyer can choose to unblind the value by adding revealing and appending the private key to `B'` and `R` to the contract before signing it.
+Finally, during rating time, the buyer can choose to unblind the value by appending the private key to `B'` and the value `R` to the contract before signing it.
 
 Any third party can then unblind and verify the value `SECRETDATA`.
 
