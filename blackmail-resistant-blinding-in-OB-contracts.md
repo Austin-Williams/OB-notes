@@ -32,7 +32,7 @@ Then the protocol works as follows:
 
 Now the vendor can decrypt the cyphertext ` ENC( {V,B',M}, SECRETDATA ⊕ R, ) ` to reveal ` SECRETDATA ⊕ R `, then use `R` to compute `SECRETDATA`. He can further verify that the buyer did in fact commit to these values. But the vendor cannot prove to a third party (other than the moderator... we'll get that next) that the buyer committed to SECRETDATA without the vendor revealing his own PGP private key.
 
-The moderator, by himself, can (at best) decrypt and learn the value `SECRETDATA ⊕ R`. But without knowing `R` he learns exactly nothing.
+The moderator, by himself, can (at best) decrypt and learn the value `SECRETDATA ⊕ R`. But without knowing `R` he learns exactly nothing about `SECRETDATA`.
 
 To bring the moderator into the fold, either the vendor or the buyer simply reveal `R` to the moderator -- at which point the moderator can learn `SECRETDATA` and confirm that it's the value to which the buyer committed... but he can't convince any third party of that fact without revealing his own private pgp key.
 
