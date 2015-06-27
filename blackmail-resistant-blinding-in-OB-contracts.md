@@ -36,7 +36,7 @@ Now the vendor can decrypt the cyphertext ` ENC( {V,B',M}, SECRETDATA ⊕ R, ) `
 
 The moderator, by himself, can (at best) decrypt and learn the value `SECRETDATA ⊕ R`. But without knowing `R` he learns exactly nothing about `SECRETDATA`.
 
-To bring the moderator into the fold, either the vendor or the buyer simply reveal `R` to the moderator -- at which point the moderator can learn `SECRETDATA` and confirm that it's the value to which the buyer committed... but he can't convince any third party of that fact without revealing his own private pgp key.
+To bring the moderator into the fold, either the vendor or the buyer simply reveals `R` to the moderator -- at which point the moderator can learn `SECRETDATA` and confirm that it's the value to which the buyer committed... but he can't convince any third party of that fact without revealing his own private pgp key.
 
 Finally, during rating time, the buyer can choose to unblind the value by appending the private key to `B'` and the value `R` to the contract before signing it.
 
