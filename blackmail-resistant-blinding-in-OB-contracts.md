@@ -24,3 +24,5 @@ To bring the moderator into the fold, either the vendor or the buyer simply reve
 Finally, during rating time, the buyer can choose to unblind the value by adding revealing and appending the private key to `B'` and `R` to the contract before signing it.
 
 Any third party can then unblind and verify the value `SECRETDATA`.
+
+*The heart of the idea is this*: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away is their private keys. _So we should require their private keys be necessary for them to verify the data in our blinds._
