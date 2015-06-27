@@ -1,6 +1,18 @@
 ##Blackmail-Resistant Blinding for OpenBazaar Contracts
 
-So here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
+###Motivation
+A vendor or moderator may try to blackmail a buyer by threatening to reveal information that's been blinded and signed by the buyer. We would like a way for the buyer to be protected against blackmail that acheives the following:
+
+1. The vendor should be able to verify the information blinded in the contract and signed by the buyer.
+2. The vendor should not be capable of proving to a third party (other than the moderator) the values to which the buyer has commited.
+3. The moderator should not be able to see or verify the information blinded in the contract except in the case of a dispute.
+4. Wehn the moderator can see/verify the blinded data, he should be bound by the same restrictions as the verifier in 2.
+5. At the time of writing her rating, the buyer ought to be able to unblind the chosen datafeilds in such a way that any third party can verify them.
+6. 
+### The Protocol
+
+Here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
+
 ```
 Let V, B, and M denote the PGP keys for the vendor, buyer, and moderator, respectively.
 Let SECRETDATA be the data the buyer wants to blind.
