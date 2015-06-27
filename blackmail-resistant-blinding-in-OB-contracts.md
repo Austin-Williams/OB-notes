@@ -1,4 +1,4 @@
-# Blackmail-Resistant Blinding for OpenBazaar Contracts
+## Blackmail-Resistant Blinding for OpenBazaar Contracts
 
 ### Motivation
 
