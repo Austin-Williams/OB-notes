@@ -41,4 +41,4 @@ Finally, during rating time, the buyer can choose to unblind the value by adding
 Any third party can then unblind and verify the value `SECRETDATA`.
 
 ### Key Concept
-The heart of the idea is this: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away is their private keys. _So we should require their private keys be necessary to verify the data in our blinds._
+The heart of the idea is this: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away are their private keys. _So we should require their private keys be necessary to verify the data in our blinds._
