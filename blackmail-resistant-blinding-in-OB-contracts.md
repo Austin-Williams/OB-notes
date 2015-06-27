@@ -14,13 +14,13 @@ A vendor or moderator may try to blackmail a buyer by threatening to reveal info
 
 Here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
 
-```
-Let V, B, and M denote the PGP keys for the vendor, buyer, and moderator, respectively.
-Let SECRETDATA be the data the buyer wants to blind.
-Let ENC({Key1, Key2, ..., KeyN}, DATA) denote the encryption of DATA with public keys Key1, Key2, ..., KeyN.
+
+Let `V`, `B`, and `M` denote the PGP keys for the vendor, buyer, and moderator, respectively.
+Let `SECRETDATA` be the data the buyer wants to blind.
+We'll use the notation `ENC({Key1, Key2, ..., KeyN}, DATA)` to denote the encryption of `DATA` with public keys `Key1, Key2, ..., KeyN`.
 
 Then the protocol works as follows:
-
+```
 1. The buyer creates a one-time-use key pair, B'.
 2. The buyer chooses a nonce, R, uniformly at random from the set {0,1}^128
 3. The buyer adds the following two values to the contract:
