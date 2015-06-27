@@ -1,4 +1,4 @@
-So here is how a data field can be blinded by a Buyer in such a way as to be black-mail-resistant.
+So here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
 ```
 Let V, B, and M denote the PGP keys for the vendor, buyer, and moderator, respectively.
 Let SECRETDATA be the data the buyer wants to blind.
