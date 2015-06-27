@@ -1,3 +1,5 @@
+##Blackmail-Resistant Blinding for OpenBazaar Contracts
+
 So here is how a data field can be blinded by a Buyer in such a way as to be blackmail-resistant.
 ```
 Let V, B, and M denote the PGP keys for the vendor, buyer, and moderator, respectively.
