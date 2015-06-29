@@ -1,4 +1,4 @@
-## Blackmail-Resistant Data Blinding for OpenBazaar Contracts
+## Blackmail-Resistant Value Blinding for Ricardian Contracts
 
 ### Motivation
 
@@ -41,6 +41,9 @@ To bring the moderator into the fold, either the vendor or the buyer simply reve
 Finally, during rating time, the buyer can choose to unblind the value by appending the private key to `B'` and the value `R` to the contract before signing it.
 
 Any third party can then unblind and verify the value `SECRETDATA`.
+
+### A Note on the Direct Communications
+It's important that the buyer not send the vendor or moderator signed `SECRETDATA` plaintexts, as those could be used by the vendor or moderator to prove the buyer's commitment to that data. Instead, OTR chat should be used for communications between buyer/vendor/moderator.
 
 ### Key Concept
 The heart of the idea is this: the vendor/moderator can share any information they want with anyone. The only pieces of information we can count on them to NOT give away are their private keys. _So we should require their private keys be necessary to verify the data in our blinds._
