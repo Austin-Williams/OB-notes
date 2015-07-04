@@ -16,7 +16,7 @@ Now suppose we request the set `AllVendorRatings` from some node in the network,
 
 The fact that `CensoredRatings ⊂ AllVendorRatings` (after we throw out forgeries) is the key to the following protocol.
 
-### Preliminaries
+### The Protocol
 
 We'll treat the set `AllVendorRatings` as a mutable value in the DHT that corresponds to the key `RIPEMD160(VendorPGPpubKey)`. We choose the key this way so that a shopper can compute the key given only the vendor's portable identity (PGP key) -- and thus can find where in the DHT to look for the vendor's ratings.
 
