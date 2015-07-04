@@ -2,19 +2,9 @@
 
 ### Motivation
 
-Buyers rate vendors and then store these ratings in OpenBazaar's DHT. Later, when a shopper wants to see a vendor's ratings, she pulls the vendor's ratings from the DHT. Such a shooper faces two problems when receiving rating data from the DHT:
-1. How does the shopper know the ratings she receives correspond to actual OB trades?
-2. How does the shopper know that she's received _all_ the vendor's ratings (that the bad ratings haven't been censored)?
+Because the ratings exist in a signed and completed Ricardian contract (aka 'trade receipt'), we know ratings cannot be forged without creating fake trades via sybil buyers. So shoppers needn't worry much about seeing 'fake' ratings of a vendor.
 
-In other words, how do we prevent (1) forgery and (2) censorship?
-
-We've already addressed (1) with trade receipts. Because the ratings exist in a signed and completed Ricardian contract (aka 'trade receipt'), we know ratings cannot be forged without creating fake trades via sybil buyers. Forging attacks are thus made more costly by requiring the attacker to create OB sybils.
-
-But how can a shopper know that she's seeing _all_ the ratings; that none of the ratings are being kept from her? How can she conclude, with high probability, that she's getting the whole picture? That's the problem we attempt to address here.
-
-### Limitations
-
-We'd like a solution that does _not_ involve using the bitcoin blockchain. We've decided the solution should be 'in house' -- storing the values in our own DHT. Now, generally speaking, the problem of reaching consensus on a value in an open p2p-network of anonymous (and potentially malicious) participants is extreamly hard. In fact, that was the core motivation behind the invention of the blockchain to begin with. However, the type of data over which we want to reach consensus (the set of all ratings for a particular vendor) has a nice property that makes our version of the consensus problem much easier to solve. We don't need the heavy lifting a blockchain provides.
+But how can a shopper know that he's seeing _all_ the ratings; that none of the ratings are being kept from him? How can he conclude, with high probability, that he's getting the whole picture? That's the problem we attempt to address here.
 
 ### Key Observation
 
@@ -30,9 +20,9 @@ We'll treat the set `AllVendorRatings` as a mutable value in the DHT that corres
 
 It also puts the key into an area of the network where the vendor is unlikely to have a significant influence -- that is, a vendor is unlikely to have a GUID in the neighborhood of this key (more on this later); and as we'll see, even if he does, his influence over the value mapped to the key is extreamly limited.
 
-As with all key/value stores, the value will be hosted by several nodes in the network (at minimum the k closest nodes to the key) to allow for nodes to come and go without the network losing the value. See the 'locating resources' section of [this page](http://distrosys.wikia.com/wiki/DHT_-_Kademlia) for more info on key/value stores in Kademlia networks.
+As with all key/value stores, the value will be hosted by several nodes in the network (at minimum, the k closest nodes to the key) to allow for nodes to come and go without the network losing the ratings. (See the 'locating resources' section of [this page](http://distrosys.wikia.com/wiki/DHT_-_Kademlia) for more info on key/value stores in Kademlia networks). As per usual, nodes hosting the key/value pair periodicly check in with each other to update the value -- so they all have the most recent version. 
 
-As per usual, nodes hosting the key/value pair periodicly check in with each other to update the value -- so they all have the most recent version. The important question to ask is "how do nodes update this value -- especially considering that some of the nodes making claims about this value may be malicious?" For example: if nodes, A & B check in with each other and find they disagree on the current value of `AllVendorRatings`, how can they reconcile that discrepency? After all, neither knows whether the other party is honest. The following section addresses this issue.
+The important question to ask is "how do nodes update this value -- especially considering that some of the nodes making claims about this value may be malicious?" For example: if nodes, A & B check in with each other and find they disagree on the current value of `AllVendorRatings`, how can they reconcile that discrepency? After all, neither knows whether the other party is honest. The following section addresses this issue.
 
 ### Updating Values
 First let's establish some notation so we can communicate the ideas that follow more clearly.
@@ -42,7 +32,7 @@ First let's establish some notation so we can communicate the ideas that follow 
 * Suppose `X` is any set that contains some ratings for a vendor. Then we'll use the notation `SANITIZE(X)` to denote the set `X` upon removal of all ratings that cannot be verified by a trade receipt. In other words, `SANITIZE(X)` is what we get when we scan through `X` and pick out _only_ the good stuff. This is a just a compact way of denoting the process of 'checking the sigs on a trade reciept'.
 When we ask a node for the value associated with the key `KEY`, a malicious node may respond with any manner of malformed set `X`. But we know for sure that `SANITIZE(X) ⊂ AllVendorRatings`. In some cases `SANITIZE(X)` will be the empty set. That's not a problem.
 
-*Suppose node `A` and node `B` are two nodes hosting the key `KEY`.
+* Suppose node `A` and node `B` are two nodes hosting the key `KEY`.
 Let `Node-A-Rating-Set` be the value that node `A` is currently assigning to the key `KEY`.
 Let `Node-B-Rating-Set` be the value that node `B` is currently assigning to the key `KEY`.
 
@@ -65,15 +55,23 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 ```
 
 ### Security Considerations
-** Who are the nodes hosting the ratings? **
-	The `KEY` for the list of ratings is an output of `RIPEMD160`, which is indistinguishable from random. Thus the "neighborhood" hosting a given vendor's ratings is, essentially, being chosen at random. This is a good thing. The vendor cannot influence this choice of 'key placement' without changing PGP keys.
-** Can a vendor "infiltrate" the neighborhood hosting his ratings? **
-	** Yes. And this matters. ** The vendor needs only create a GUID that is closer to `KEY` than one of the k nodes currently nearest to `KEY`. He can do this by trial-and-error until he finds such a GUID. For every `N/k` GUIDs (where `N` is the total number of OB nodes) the attacker creates, one of them (on average) will be in the neighborhood of `KEY`.
+* **Who are the nodes hosting the ratings?**
+
+	Since the key for the list of ratings is an output of `RIPEMD160`, which is indistinguishable from random. Thus the "neighborhood" hosting a given vendor's ratings is, essentially, being chosen at random. This is a good thing. The vendor cannot influence this choice of 'key placement' without changing PGP keys.
+
+* **Can a vendor "infiltrate" the neighborhood hosting his ratings?**
+
+	Yes. And this matters. The vendor needs only create a GUID that is closer to `KEY` than one of the k nodes currently nearest to `KEY`. He can do this by trial-and-error until he finds such a GUID. For every `N/k` GUIDs (where `N` is the total number of OB nodes) the attacker creates, one of them (on average) will be in the neighborhood of `KEY`.
 	Thus an attaker can have _total control_ over a neighborhood of _any key_ in the DHT (not just a key for ratings) after creating, on average, just `N` GUIDs. This is a plausible attack, because GUIDs are (currently) very cheap to make. This attack can be prevented by making the initial creation of GUIDs more computationally expensive. See the 'Making GUIDs Costly' section below.
-** How much damage can malicious nodes do? **
-	The protocol is actually quite robust against malicious nodes. Suppose attackers control `m <= k` malicious nodes in the neighborhood of a `KEY` and suppose a shopper queries `q` nodes at random from the neighborhood asking for the list of vendor ratings. If `m < q` it is impossible for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ recieve the entire set `AllVendorRatings`.
-	If `m >= q` then the probability that the attacker can censor ratings from the shopper is given by `(product ((m-n)/(k-n)), n=0 to (q-1)`. Let's plug some actual numbers into that to see how robust the protocol is. If `k=24` and a shopper queries just `q=4` nodes asking for the vendor's ratings, then in order for the attackers to have even a 5% chance of censoring the ratings the attackers would need to control `m=12` mailicious nodes -- that's half the nodes -- in the neighborhood of `KEY`.
-** A rating's original STORE in the DHT must be seen by at least one honest node. **
+
+* **How much damage can malicious nodes do?**
+
+	The protocol is actually quite robust against malicious nodes. Let `k` be the number of nodes in the neighborhood of `KEY`, and suppose attackers control `m <= k` malicious nodes in the neighborhood of a `KEY`. Suppose a shopper queries `q` nodes at random from the neighborhood of `KEY` asking for the list of vendor ratings. If `m < q` it is _impossible_ for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ recieve the entire set `AllVendorRatings`.
+	
+	If `m >= q` then the probability that the attacker can censor ratings from the shopper is given by `(product ((m-n)/(k-n)), n=0 to (q-1)`. Let's plug in some actual numbers to get a sense of how robust this protocol is. If `k=24` and a shopper queries just `q=4` nodes asking for the vendor's ratings, then in order for the attackers to have even a 5% chance of censoring the ratings the attackers would need to control `m=12` mailicious nodes -- that's half the nodes -- in the neighborhood of `KEY`.
+
+* **A rating's original STORE in the DHT must be seen by at least one honest node.**
+
 	Otherwise it can be immediately censored by a malicious node -- that node simply won't relay or store the rating. This is less of a problem than it may first appear. We can simply directly request the new rating be stored in a few randomly selected nodes in the neiborhood of `KEY`. If a buyer (or vendor or moderator) directly connects to just 4 randomly selected nodes in the neighborhood of `KEY` and stored the review there, attackers would need to control _half_ of the nodes in the neighborhood of `KEY` in order to have even a 5% chance of censoring the review (assuming `k=24`).
 
 
