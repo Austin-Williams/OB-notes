@@ -10,6 +10,8 @@ Having the vendor host his own ratings will only work if we can assure he's doin
 
 ### The Protocol
 
+Fix a vendor and let `AllVendorRatings` denote the set of _all_ ratings of the vendor in question (this is the set to which we want shoppers to have access). Note that `AllVendorRatings` is an append-only list. Ratings can be added to it, but should never be removed from it. It's size is monotonically increasing.
+
 We'll treat the set `AllVendorRatings` as a mutable value in the DHT that corresponds to the key `RIPEMD160(VendorPGPpubKey)`. We choose the key this way so that a shopper can compute the key given only the vendor's portable identity (PGP key) -- and thus can find where in the DHT to look for the vendor's ratings.
 
 It also puts the key into an area of the network where the vendor is unlikely to have a significant influence -- that is, a vendor is unlikely to have a GUID in the neighborhood of this key (more on this later); and as we'll see, even if he does, his influence over the value mapped to the key is extremely limited.
