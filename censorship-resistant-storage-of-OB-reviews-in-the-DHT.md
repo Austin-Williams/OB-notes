@@ -68,9 +68,9 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 
 * **How much damage can malicious nodes do?**
 
-	The protocol is actually quite robust against malicious nodes. Let `k` be the number of nodes in the neighborhood of `KEY`, and suppose attackers control `m <= k` malicious nodes in the neighborhood of a `KEY`. Suppose a shopper queries `q` nodes at random from the neighborhood of `KEY` asking for the list of vendor ratings. If `m < q` it is _impossible_ for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ receive the entire set `AllVendorRatings`.
+	The protocol is actually quite robust against malicious nodes. Let `k` be the number of nodes in the neighborhood of `KEY`, and suppose attackers control `m ≤ k` malicious nodes in the neighborhood of a `KEY`. Suppose a shopper queries `q` nodes at random from the neighborhood of `KEY` asking for the list of vendor ratings. If `m < q` it is _impossible_ for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ receive the entire set `AllVendorRatings`.
 	
-	If `m >= q` then the probability that the attacker can censor ratings from the shopper is given by `(product ((m-n)/(k-n)), n=0 to (q-1)`. Let's plug in some actual numbers to get a sense of how robust this protocol is. If `k=24` and a shopper queries just `q=4` nodes asking for the vendor's ratings, then in order for the attackers to have even a 5% chance of censoring the ratings the attackers would need to control `m=12` malicious nodes -- that's half the nodes -- in the neighborhood of `KEY`.
+	If `m ≥ q` then the probability that the attacker can censor ratings from the shopper is given by `(product ((m-n)/(k-n)), n=0 to (q-1)`. Let's plug in some actual numbers to get a sense of how robust this protocol is. If `k=24` and a shopper queries just `q=4` nodes asking for the vendor's ratings, then in order for the attackers to have even a 5% chance of censoring the ratings the attackers would need to control `m=12` malicious nodes -- that's half the nodes -- in the neighborhood of `KEY`.
 
 * **A rating's original STORE in the DHT must be seen by at least one honest node.**
 
