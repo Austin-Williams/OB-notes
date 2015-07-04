@@ -59,7 +59,7 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 ### Security Considerations
 * **Who are the nodes hosting the ratings?**
 
-	Since the key for the list of ratings is an output of `RIPEMD160`, which is indistinguishable from random. Thus the "neighborhood" hosting a given vendor's ratings is, essentially, being chosen at random. This is a good thing. The vendor cannot influence this choice of 'key placement' without changing PGP keys.
+	The key for the list of ratings is an output of `RIPEMD160`, which is indistinguishable from random. Thus the "neighborhood" hosting a given vendor's ratings is, essentially, being chosen at random. This is a good thing. The vendor cannot influence this choice of 'key placement' without changing PGP keys.
 
 * **Can a vendor "infiltrate" the neighborhood hosting his ratings?**
 
