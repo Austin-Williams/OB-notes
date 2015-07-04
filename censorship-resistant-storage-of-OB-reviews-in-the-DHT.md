@@ -27,6 +27,7 @@ As with all key/value stores, the value will be hosted by several nodes in the n
 The important question to ask is "how do nodes update this value -- especially considering that some of the nodes making claims about this value may be malicious?" For example: if nodes, A & B check in with each other and find they disagree on the current value of `AllVendorRatings`, how can they reconcile that discrepancy? After all, neither knows whether the other party is honest. The following section addresses this issue.
 
 ### Updating Values
+
 First let's establish some notation so we can communicate the ideas that follow more clearly.
 
 * Let `KEY = RIPEMD160(VendorPGPpubKey)` be the key which we want to point to the value `AllVendorRatings`.
@@ -51,12 +52,14 @@ The result is that `Node-A-Rating-Set` contains all the ratings of which node `A
 Node `B` updates against node `A` in the same manner. In fact, all nodes in the neighborhood of `KEY` update against each other in this way. The end result is that all honest nodes will agree on the full set `AllVendorRatings`, and there is nothing a malicious node can do to trick an honest node into censoring a rating. In fact, as long as a given rating is stored with _any_ honest node, we can be sure that _all_ honest nodes will host it after the neighborhood updates.
 
 ### Storing New Ratings
+
 A buyer (or vendor or moderator) can store new ratings in the DHT as they would any other value. If `T` is the trade receipt containing the review to be stored, they simply issue the `STORE(KEY,T)` command to nodes in the neighborhood of `KEY`. Nodes in the neighborhood of `KEY` will recognize that `T` is a trade receipt and update their list of ratings accordingly; for example via:
 ```
 Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 ```
 
 ### Security Considerations
+
 * **Who are the nodes hosting the ratings?**
 
 	The key for the list of ratings is an output of `RIPEMD160`, which is indistinguishable from random. Thus the "neighborhood" hosting a given vendor's ratings is, essentially, being chosen at random. This is a good thing. The vendor cannot influence this choice of 'key placement' without changing PGP keys.
@@ -78,14 +81,19 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 
 
 ### Making GUIDs Costly
+
 Making initial GUID creation costly is extraordinarily simple. One easy way to do it is to incorporate a proof-of-work into the original computation of the GUID.  For example, rather than computing the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey))` we simply compute the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey ) || nonce)` where `nonce` is a value such that `SHA256(self_signed pubkey || nonce))` -- interpreted as an integer -- is less than some global difficulty parameter `d`.
+
 When a node checks the validity of a GUID, they not only expect proof that the node holds the privKey corresponding to the self_signed pubkey, but they also verify that `SHA256(self_signed pubkey || nonce) < d`.
-If we decide on a minimum hardware spec for running OB, we could calculate the difficulty `d` so that clients running on minspec hardware could create a GUID in, say, 10 min (a one-time GUID setup cost of 10 min is a small price to pay for access to a worldwide decentralized marketplace with no censorship or fees). Users running faster hardware could compute a GUID in, say, 1 min.
+
+If we decide on a minimum hardware specification for running OB, we could calculate the difficulty `d` so that clients running on minspec hardware could create a GUID in, say, 10 min (a one-time GUID setup cost of 10 min is a small price to pay for access to a worldwide decentralized marketplace with no censorship or fees). Users running faster hardware could compute a GUID in, say, 1 min.
 
 ### Final Thoughts
 
-Preventing ratings from being censored is not easy in an anonymous p2p-network. Storing the ratings _solely_ in the DHT and still achieving censorship-resistance is even harder. Any one node could have plenty of reason to censor a rating from a buyer: A moderator or third party could be bribed by the vendor to censor his negative ratings, for example. The protocol described here works by storing the ratings with several nodes. It provides reasonable assurances to the shopper even in the case where more than half of the storage nodes have been compromised. But we must keep in mind that, with GUIDs being so cheap to create, a determined attacker can quite easily take over the entire neighborhood responsible for storing ratings.
+Preventing ratings from being censored is not easy in an anonymous p2p-network. Storing the ratings _solely_ in the DHT and still achieving censorship-resistance is even harder. Any one node could have plenty of reason to censor a rating from a buyer: A moderator or third party could be paid by the vendor to censor his negative ratings, for example. 
+
+The protocol described here works by storing the ratings with several nodes. It provides reasonable assurances to the shopper even in the case where more than half of the storage nodes have been compromised. But we must keep in mind that, with GUIDs being so cheap to create, a determined attacker can quite easily take over the entire neighborhood responsible for storing his ratings.
 
 As a result, I can only recommend this method if we also make GUID creation more costly.
 
-Using the bitcoin blockchain to store pointers to ratings would provide maximum assurances against censorship -- and from a strictly security conscious point-of-view I think that would be the ideal, but I understand that we've decided to go a different direction. If we are going to store the ratings solely in the OB DHT, I think we should require more than just the vendor and moderator nodes to store it.
+Using the bitcoin blockchain to store pointers to ratings would provide maximum assurances against censorship -- and from a strictly security conscious point-of-view I think that would be the ideal, but I understand that we've decided to go a different direction. If we are going to store the ratings solely in the OB DHT, I think we should require more than just the vendor and moderator nodes to store them. To do so securely may require us to make initial GUID creation computationally costly.
