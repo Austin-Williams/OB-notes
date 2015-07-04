@@ -8,14 +8,6 @@ But how can a shopper know that he's seeing _all_ the ratings; that none of the 
 
 Having the vendor host his own ratings will only work if we can assure he's doing so honestly -- and,  without a secure append-only ledger (blockchain) to store pointers to the ratings, that isn't feasible. Having moderators host reviews is insufficient because if a moderator has downtime (or even leaves the network permanently) vendor ratings could disappear forever. Having buyers host their own ratings of vendors results in both privacy concerns for the buyer and downtime issues. So what are we to do?
 
-### Key Observation
-
-Fix a vendor and let `AllVendorRatings` denote the set of _all_ ratings of the vendor in question (this is the set to which we want shoppers to have access). Note that `AllVendorRatings` is an append-only list. Ratings can be added to it, but should never be removed from it. It's size is monotonically increasing.
-
-Now suppose we request the set `AllVendorRatings` from some node in the network, and that node tries to fool us by giving us some other set, `CensoredRatings`, instead. Since attackers cannot forge ratings (thanks to trade receipts), and since we always verify the trade receipts before trusting them, it must be the case that `CensoredRatings` is a subset of `AllVendorRatings` -- for otherwise `CensoredRatings` would contain a forgery, and we'd just toss the forgery out. 
-
-The fact that `CensoredRatings ⊂ AllVendorRatings` (after we throw out forgeries) is the key to the following protocol.
-
 ### The Protocol
 
 We'll treat the set `AllVendorRatings` as a mutable value in the DHT that corresponds to the key `RIPEMD160(VendorPGPpubKey)`. We choose the key this way so that a shopper can compute the key given only the vendor's portable identity (PGP key) -- and thus can find where in the DHT to look for the vendor's ratings.
@@ -26,7 +18,7 @@ As with all key/value stores, the value will be hosted by several nodes in the n
 
 The important question to ask is "how do nodes update this value -- especially considering that some of the nodes making claims about this value may be malicious?" For example: if nodes, A & B check in with each other and find they disagree on the current value of `AllVendorRatings`, how can they reconcile that discrepancy? After all, neither knows whether the other party is honest. The following section addresses this issue.
 
-### Updating Values
+#### Updating Values
 
 First let's establish some notation so we can communicate the ideas that follow more clearly.
 
@@ -51,7 +43,7 @@ The result is that `Node-A-Rating-Set` contains all the ratings of which node `A
 
 Node `B` updates against node `A` in the same manner. In fact, all nodes in the neighborhood of `KEY` update against each other in this way. The end result is that all honest nodes will agree on the full set `AllVendorRatings`, and there is nothing a malicious node can do to trick an honest node into censoring a rating. In fact, as long as a given rating is stored with _any_ honest node, we can be sure that _all_ honest nodes will host it after the neighborhood updates.
 
-### Storing New Ratings
+#### Storing New Ratings
 
 A buyer (or vendor or moderator) can store new ratings in the DHT as they would any other value. If `T` is the trade receipt containing the review to be stored, they simply issue the `STORE(KEY,T)` command to nodes in the neighborhood of `KEY`. Nodes in the neighborhood of `KEY` will recognize that `T` is a trade receipt and update their list of ratings accordingly; for example via:
 ```
