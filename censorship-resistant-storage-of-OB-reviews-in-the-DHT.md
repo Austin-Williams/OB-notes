@@ -97,4 +97,6 @@ The protocol described here works by storing the ratings with several nodes. It 
 
 As a result, I can only recommend this method if we also make GUID creation more costly.
 
-Using the bitcoin blockchain to store pointers to ratings would provide maximum assurances against censorship -- and from a strictly security conscious point-of-view I think that would be the ideal, but I understand that we've decided to go a different direction. If we are going to store the ratings solely in the OB DHT, I think we should require more than just the vendor and moderator nodes to store them. To do so securely may require us to make initial GUID creation computationally costly.
+Using the bitcoin blockchain to store pointers to ratings would provide maximum assurances against censorship -- and from a strictly security conscious point-of-view I think that would be the ideal. But I understand that we've decided to go a different direction. 
+
+If we are going to store the ratings solely in the OB DHT, I think we should require more than just the vendor and moderator nodes to store them. To do so securely may require us to make initial GUID creation computationally costly.
