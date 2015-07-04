@@ -60,9 +60,9 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 
 * **Can a vendor "infiltrate" the neighborhood hosting his ratings?**
 
-	Yes. And this matters. The vendor needs only create a GUID that is closer to `KEY` than one of the k nodes currently nearest to `KEY`. He can do this by trial-and-error until he finds such a GUID. For every `N/k` GUIDs (where `N` is the total number of OB nodes) the attacker creates, one of them (on average) will be in the neighborhood of `KEY`.
+	Yes. And this matters. The vendor needs only create a GUID that is closer to `KEY` than one of the k nodes currently nearest to `KEY`. He can do this by trial-and-error until he finds such a GUID. For every `N/k` GUIDs (where `N` is the total number of live OB nodes) the attacker creates, one of them (on average) will be in the neighborhood of `KEY`.
 	
-	Thus an attacker can have _total control_ over a neighborhood of _any key_ in the DHT (not just a key for ratings) after creating, on average, just `N` GUIDs. This is a plausible attack, because GUIDs are (currently) very cheap to make. This attack can be prevented by making the initial creation of GUIDs more computationally expensive. See the 'Making GUIDs Costly' section below.
+	Thus an attacker can have _total control_ over a neighborhood of _any key_ in the DHT (not just a key for ratings) after creating, on average, `N` GUIDs. This is a plausible attack, because GUIDs are (currently) very cheap to make. This attack can be prevented by making the initial creation of GUIDs more computationally expensive. See the 'Making GUIDs Costly' section below. 
 
 * **How much damage can malicious nodes do?**
 
