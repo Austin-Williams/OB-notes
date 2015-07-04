@@ -66,7 +66,7 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 
 * **How much damage can malicious nodes do?**
 
-	This protocol is actually quite robust against malicious nodes. Let `k` be the number of nodes in the neighborhood of `KEY`, and suppose attackers control `m ≤ k` malicious nodes in the neighborhood of a `KEY`. Suppose a shopper queries `q` nodes at random from the neighborhood of `KEY` asking for the list of vendor ratings. If `m < q` it is _impossible_ for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ receive the entire set `AllVendorRatings`.
+	This protocol is actually quite robust against malicious nodes. Let `k` be the number of nodes in the neighborhood of `KEY`, and suppose attackers control `m ≤ k` malicious nodes in the neighborhood of a `KEY`. Suppose a shopper queries `q` nodes at random from the neighborhood of `KEY` asking for the list of vendor ratings. If `m < q` it is _impossible_ for the attackers to censor any ratings at all. To say that another way, if a shopper queries more nodes than the attackers control, the shopper _will_ receive the entire set `AllVendorRatings`, because at least _one_ of the queried nodes will be honest.
 	
 	If `m ≥ q` then the probability that the attacker can censor ratings from the shopper is given by `(product ((m-n)/(k-n)), n=0 to (q-1))` (this is the probability that all `q` nodes queried by the shopper are controlled by the attackers). 
 	
