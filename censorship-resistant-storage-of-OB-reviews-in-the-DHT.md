@@ -79,7 +79,7 @@ Node-A-Rating-Set ← Node-A-Rating-Set ∪ SANITIZE(T)
 
 ### Making GUIDs Costly
 
-Making initial GUID creation costly is extraordinarily simple. One easy way to do it is to incorporate a proof-of-work into the original computation of the GUID.  For example, rather than computing the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey))` we simply compute the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey ) || nonce)` where `nonce` is a value such that `SHA256(self_signed pubkey || nonce))` -- interpreted as an integer -- is less than some global difficulty parameter `d`.
+Making initial GUID creation costly can be done in many ways. One easy way to do it is to incorporate a proof-of-work into the original computation of the GUID.  For example, rather than computing the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey))` we simply compute the GUID as `GUID = RIPEMD160(SHA256(self_signed pubkey ) || nonce)` where `nonce` is a value such that `SHA256(self_signed pubkey || nonce))` -- interpreted as an integer -- is less than some global difficulty parameter `d`.
 
 When a node checks the validity of a GUID, they not only expect proof that the node holds the privKey corresponding to the self_signed pubkey, but they also verify that `SHA256(self_signed pubkey || nonce) < d`.
 
