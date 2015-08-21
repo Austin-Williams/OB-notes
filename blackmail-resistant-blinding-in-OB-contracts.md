@@ -19,12 +19,12 @@ Here is how a data field can be blinded by a buyer in such a way as to be blackm
 
 Let `V`, `B`, and `M` denote the PGP keys for the vendor, buyer, and moderator, respectively.
 Let `SECRETDATA` be the data the buyer wants to blind.
-We'll use the notation `ENC({Key1, Key2, ..., KeyN}, DATA)` to denote the encryption of `DATA` with public keys `Key1, Key2, ..., KeyN`. In the example below we assume the data value to be blinded is 128 bits in length, but this can be changed as needed by adjusting the length of the random nonce, R, chosen in step 2 below.
+We'll use the nottion `ENC({Key1, Key2, ..., KeyN}, DATA)` to denote the encryption of `DATA` with public keys `Key1, Key2, ..., KeyN`. Let `L` be the length of `SECRETDATA`. We will assume that `L >= 128` (If not, then pad `SECRETDATA` until it is).
 
 Then the protocol works as follows:
 ```
 1. The buyer creates a one-time-use key pair, B'.
-2. The buyer chooses a nonce, R, uniformly at random from the set {0,1}^128
+2. The buyer chooses a nonce, R, uniformly at random from the set {0,1}^L
 3. The buyer adds the following two values to the contract:
 	- ENC( {V,B',M} , SECRETDATA ⊕ R )
 	- SHA256( R )
