@@ -8,7 +8,7 @@ A vendor or moderator may try to blackmail a buyer by threatening to reveal info
 2. The vendor should not be capable of proving to a third party (other than the moderator) the values to which the buyer has commited.
 3. The moderator should not be able to see or verify the information blinded in the contract except in the case of a dispute.
 4. When the moderator can see/verify the blinded data, he should be bound by the same restrictions as the verifier in 2.
-5. At the time of writing her rating, the buyer ought to be able to unblind the chosen datafeilds in such a way that any third party can verify them.
+5. At a later time, the buyer ought to be able to unblind the chosen datafeilds in such a way that any third party can verify them.
 
 We will call such a method for data blinding _blackmail-reistant_.
 
