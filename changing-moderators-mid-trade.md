@@ -14,6 +14,12 @@ Refer to the 2-of-3 multisig address in which the funds are currently escrowed a
 
 The Merchant and Buyer now have no need for the old Moderator, and can work with the NewModerator to settle their dispute.
 
-#### *Alternative Execution:*
+#### *Alternative Execution (1):*
 
-This method allows the Vendor and Buyer to create a 2-of-2 multisig address initially, and then follow the same steps as above to select a Moderator if they need arbitration.
+This method allows the Vendor and Buyer to create a 2-of-2 multisig address initially, and then follow the same steps as above to select a Moderator if they need arbitration; although by doing so they put themselves at risk of having funds essentiall 'frozen' if the other party becomes unresponsive.
+
+#### *Alternative Execution (2):*
+
+Any two of the parties (say, Buyer and Moderator) can create and sign an nTimeLocked transaction, T, from _EscrowAddress_ to _NewEscrowAddress_ *before* the escrow address is funded by Buyer. Transaction T can be given to both Vendor and Buyer for safekeeping. Then the buyer can fund _EscrowAddress_. Suppose transaction T becomes valid on date X.
+
+In the event that the Moderator and one other party both become unresponsive, the remaining party need not lose access to the escrowed coins. The remaining party can wait until date X and then broadcast T; thereby sending the funds to _NewEscrowAddress_ and allowing her to work with _NewModerator_ to release the funds as needed.
