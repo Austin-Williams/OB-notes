@@ -1,7 +1,7 @@
 ### *A Protocol for a Vendor and Buyer to Change Moderators Mid-Trade*
 
 #### *Motivation:*
-A Vendor and Buyer in dispute and with funds in escrow may find themselves unhappy with the arbitration of their current Moderator. Perhaps the Moderator becomes unresponsive, or refuses to settle the dispute for moral/legal/ethical/personal reasons. Or maybe the Moderator is demanding certain data fields to be unblinded that the other parties are  not comfortable unblinding. Whatever the reason, the Vendor and Buyer may agree that they want their dispute handled by a new Moderator. This can be done quite simply, and without the current Moderator's permission as follows.
+A Vendor and Buyer in dispute and with funds in escrow may find themselves unhappy with the arbitration of their current Moderator. Perhaps the Moderator becomes unresponsive, or refuses to settle the dispute for moral/legal/ethical/personal reasons. Or maybe the Moderator is demanding certain information or a higher fee than the other parties are comfortable with. Whatever the reason, the Vendor and Buyer may agree that they want their dispute handled by a new Moderator. This can be done quite simply, and without the current Moderator's permission as follows.
 
 #### *Execution:*
 Refer to the 2-of-3 multisig address in which the funds are currently escrowed as _EscrowAddress_.  
