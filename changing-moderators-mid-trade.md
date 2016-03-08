@@ -20,6 +20,6 @@ This method allows the Vendor and Buyer to create a 2-of-2 multisig address init
 
 #### *Alternative Execution (2):*
 
-Any two of the parties (say, Buyer and Moderator) can create and sign an nTimeLocked transaction, T, from _EscrowAddress_ to _NewEscrowAddress_ **before** the escrow address is funded by Buyer. Transaction T can be given to both Vendor and Buyer for safekeeping. Then the buyer can fund _EscrowAddress_. Suppose transaction T becomes valid on date X.
+Any two of the parties (say, Buyer and Moderator) can create and sign an nTimeLocked transaction, T, from _EscrowAddress_ to _NewEscrowAddress_ **before** the escrow address is funded by the Buyer. Transaction T can be given to both the Vendor and the Buyer for safekeeping. Then the Buyer can fund _EscrowAddress_. 
 
-In the event that the Moderator and one other party both become unresponsive, the remaining party need not lose access to the escrowed coins. The remaining party can wait until date X and then broadcast T; thereby sending the funds to _NewEscrowAddress_ and allowing her to work with _NewModerator_ to release the funds as needed.
+In the event that the Moderator and one other party both become unresponsive, the remaining party need not lose access to the escrowed coins. The remaining party can wait until the date T becomes valid and then broadcast T; thereby sending the funds to _NewEscrowAddress_ and allowing her to work with _NewModerator_ to release the funds as needed.
