@@ -16,7 +16,7 @@ The Merchant and Buyer now have no need for the old Moderator, and can work with
 
 #### *Alternative Execution (1):*
 
-This method allows the Vendor and Buyer to create a 2-of-2 multisig address initially, and then follow the same steps as above to select a Moderator if they need arbitration; although by doing so they put themselves at risk of having funds essentiall 'frozen' if the other party becomes unresponsive.
+This method allows the Vendor and Buyer to create a 2-of-2 multisig address initially, and then follow the same steps as above to select a Moderator if they need arbitration; although by doing so they put themselves at risk of having funds become unspendable if the other party becomes unresponsive.
 
 #### *Alternative Execution (2):*
 
