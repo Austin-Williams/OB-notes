@@ -1,5 +1,10 @@
 ## Blackmail-Resistant Value Blinding for Ricardian Contracts
 
+### Important Update
+This proposed approach is NOT safe. The seller can still blackmail the buyer by using zero-knowledge proofs to prove to a third party verifier that the buyer committed to some data. The seller can do this _without_ revealing her private key to the verifier.
+
+DO NOT use this approach. I'm keeping up only for historical purposes.
+
 ### Motivation
 
 A vendor or moderator may try to blackmail a buyer by threatening to reveal information that's been blinded and signed by the buyer. We would like a way for the buyer to be protected against blackmail that acheives the following:
